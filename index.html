@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-gray-50 dark:bg-gray-900">
-  <link rel="icon" type="image/png" href="huda.png">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huda</title>
-    <!-- Load Tailwind CSS -->
+    <link rel="icon" type="image/png" href="huda.png"> 
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide icons for aesthetics -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Set default font to Inter and enable responsive design -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
@@ -56,10 +54,8 @@
 </head>
 <body class="h-full antialiased flex flex-col items-center justify-start p-4 md:p-8">
 
-    <!-- Main Container Card -->
     <div id="dashboard-card" class="w-full max-w-4xl bg-white dark:bg-gray-800 shadow-2xl rounded-2xl p-4 md:p-8 space-y-6 border-t-8 border-indigo-600 dark:border-indigo-500 transition-colors duration-300">
         
-        <!-- Header & Top Controls -->
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-4 border-gray-100 dark:border-gray-700">
             <div>
                 <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
@@ -70,26 +66,20 @@
                 </p>
             </div>
             <div class="flex space-x-3 mt-4 md:mt-0">
-                <!-- FEATURE 6: Dark Mode Toggle -->
                 <button id="dark-mode-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors shadow-sm" title="Toggle Dark Mode">
                     <i data-lucide="moon" class="w-5 h-5"></i>
                 </button>
-                <!-- FEATURE 8: User ID Display -->
                 <div class="p-2 text-sm bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded-lg shadow-sm font-mono">
                     ID: <span id="user-id-display">Loading...</span>
                 </div>
             </div>
         </header>
 
-        <!-- Main Grid Layout for Features (2 Columns on Desktop) -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <!-- COLUMN 1: WIDGETS & TIMERS (lg:col-span-2) -->
             <div class="lg:col-span-2 space-y-6">
 
-                <!-- Row 1: Time, Date & Progress -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Existing Feature: Dynamic Clock -->
                     <div class="bg-indigo-50 dark:bg-indigo-900/50 p-4 rounded-xl text-center shadow-md dark:shadow-none transition-colors">
                         <p class="text-sm font-medium text-indigo-700 dark:text-indigo-300">Current Local Time</p>
                         <div id="local-time" class="text-2xl font-bold text-indigo-800 dark:text-indigo-100 mt-1">
@@ -97,7 +87,6 @@
                         </div>
                     </div>
 
-                    <!-- FEATURE 1: Hijri Date Converter -->
                     <div class="bg-amber-50 dark:bg-amber-900/50 p-4 rounded-xl text-center shadow-md dark:shadow-none transition-colors">
                         <p class="text-sm font-medium text-amber-700 dark:text-amber-300">Hijri Date</p>
                         <div id="hijri-date" class="text-2xl font-bold text-amber-800 dark:text-amber-100 mt-1">
@@ -105,7 +94,6 @@
                         </div>
                     </div>
                     
-                    <!-- FEATURE 7: Day Progress Bar -->
                     <div class="bg-green-50 dark:bg-green-900/50 p-4 rounded-xl shadow-md dark:shadow-none transition-colors">
                         <p class="text-sm font-medium text-green-700 dark:text-green-300 mb-2">Day Progress</p>
                         <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
@@ -115,12 +103,10 @@
                     </div>
                 </div>
                 
-                <!-- Existing Feature: Iframe Widget Container -->
                 <div class="w-full bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-600">
                     <div class="p-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
                         <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Prayer Timings (Mecca)</h2>
                     </div>
-                    <!-- The user's requested iframe (hardcoded for Mecca, Makkah, Saudi Arabia) -->
                     <iframe 
                         id="iframe" 
                         title="prayerWidget" 
@@ -133,10 +119,8 @@
 
             </div>
 
-            <!-- COLUMN 2: UTILITIES & NOTES (lg:col-span-1) -->
             <div class="space-y-6">
                 
-                <!-- FEATURE 4: Qibla Direction Visualizer -->
                 <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md border border-gray-200 dark:border-gray-600 text-center">
                     <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-3 flex items-center justify-center space-x-2">
                         <i data-lucide="compass" class="w-5 h-5 text-indigo-500"></i>
@@ -153,7 +137,6 @@
                     </p>
                 </div>
                 
-                <!-- FEATURE 2: Digital Tasbih Counter (Firestore Enabled) -->
                 <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md border border-gray-200 dark:border-gray-600 text-center">
                     <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-3 flex items-center justify-center space-x-2">
                         <i data-lucide="hand" class="w-5 h-5 text-indigo-500"></i>
@@ -171,7 +154,6 @@
                     <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Count is saved to Firestore.</p>
                 </div>
 
-                <!-- FEATURE 3: To-Do List / Daily Goals (Firestore Enabled) -->
                 <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow-md border border-gray-200 dark:border-gray-600">
                     <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-3 flex items-center space-x-2">
                         <i data-lucide="check-square" class="w-5 h-5 text-indigo-500"></i>
@@ -179,7 +161,6 @@
                     </h2>
                     
                     <div id="todo-list" class="space-y-2 max-h-48 overflow-y-auto pr-2 mb-3">
-                        <!-- To-Do items will be injected here -->
                         <p id="loading-todos" class="text-sm text-gray-400">Loading goals...</p>
                     </div>
 
@@ -193,7 +174,6 @@
             </div>
         </div>
         
-        <!-- NEW FEATURE: Hadith of the Day with Refresh -->
         <div class="pt-6 border-t border-gray-100 dark:border-gray-700">
             <div class="flex justify-between items-center mb-2">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white flex items-center space-x-2">
@@ -217,31 +197,43 @@
 
     </div>
 
-    <!-- JavaScript for Firebase, Clock, and all features (FEATURE 10: Logic) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, collection, query, addDoc, updateDoc, deleteDoc, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
-        // --- FEATURE 10: Setup Global Variables ---
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        // --- FEATURE 10: Setup Global Variables (FIXED) ---
+        // !!! YOU MUST REPLACE THESE PLACEHOLDERS WITH YOUR ACTUAL FIREBASE CONFIG !!!
+        const appId = "YOUR_ACTUAL_APP_ID"; 
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_ACTUAL_APP_ID"
+        };
+        const initialAuthToken = null; // Use 'null' for anonymous sign-in
 
         let app, db, auth;
         let userId = 'anon_user'; // Default placeholder
 
-        if (firebaseConfig) {
+        if (firebaseConfig.apiKey && firebaseConfig.projectId) {
             app = initializeApp(firebaseConfig);
             db = getFirestore(app);
             auth = getAuth(app);
         } else {
-            console.error("Firebase configuration is missing.");
+            console.error("Firebase configuration is missing or incomplete. Tasbih and Goals will not load.");
         }
 
         // --- Authentication and Initialization ---
         const initializeAppAndAuth = async () => {
-            if (!auth) return;
+            if (!auth) {
+                // Set fallback ID for features that don't need persistence
+                userId = crypto.randomUUID(); 
+                document.getElementById('user-id-display').textContent = 'NO FIREBASE: ' + userId.substring(0, 8) + '...';
+                return;
+            }
 
             try {
                 if (initialAuthToken) {
@@ -259,7 +251,7 @@
                 userId = user.uid;
                 document.getElementById('user-id-display').textContent = userId.substring(0, 8) + '...';
                 startRealtimeListeners();
-            } else {
+            } else if(auth) {
                 // Anonymous user or signed out
                 userId = crypto.randomUUID(); // Fallback UUID
                 document.getElementById('user-id-display').textContent = 'ANON: ' + userId.substring(0, 8) + '...';
@@ -270,16 +262,21 @@
 
         // Helper for Firestore paths
         const getPrivateCollectionPath = (collectionName) => {
+            if (!appId || !userId) return null; // Guard against missing IDs
             return `/artifacts/${appId}/users/${userId}/${collectionName}`;
         };
 
         // --- Tasbih Counter (FEATURE 2) Logic ---
         const TASBIH_COLLECTION = 'tasbih_counter';
-        const tasbihDocRef = () => doc(db, getPrivateCollectionPath(TASBIH_COLLECTION), 'single_count');
+        const tasbihDocRef = () => {
+            const path = getPrivateCollectionPath(TASBIH_COLLECTION);
+            return path ? doc(db, path, 'single_count') : null;
+        };
 
         const startTasbihListener = () => {
-            if (!db) return;
-            const unsubscribe = onSnapshot(tasbihDocRef(), (docSnapshot) => {
+            const docRef = tasbihDocRef();
+            if (!db || !docRef) return;
+            const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
                 const count = docSnapshot.exists() ? docSnapshot.data().count : 0;
                 document.getElementById('tasbih-count').textContent = count.toString();
             }, (error) => console.error("Tasbih listener error:", error));
@@ -287,9 +284,10 @@
         };
 
         window.incrementTasbih = async () => {
-            if (!db || userId === 'anon_user') return;
+            const docRef = tasbihDocRef();
+            if (!db || !docRef) return;
             try {
-                await setDoc(tasbihDocRef(), { 
+                await setDoc(docRef, { 
                     count: parseInt(document.getElementById('tasbih-count').textContent) + 1,
                     timestamp: serverTimestamp()
                 }, { merge: true });
@@ -299,9 +297,10 @@
         };
 
         window.resetTasbih = async () => {
-            if (!db || userId === 'anon_user') return;
+            const docRef = tasbihDocRef();
+            if (!db || !docRef) return;
             try {
-                await setDoc(tasbihDocRef(), { count: 0, timestamp: serverTimestamp() });
+                await setDoc(docRef, { count: 0, timestamp: serverTimestamp() });
             } catch (e) {
                 console.error("Error resetting tasbih: ", e);
             }
@@ -311,15 +310,16 @@
         const TODO_COLLECTION = 'daily_goals';
 
         const startTodoListener = () => {
-            if (!db) return;
-            const todosRef = collection(db, getPrivateCollectionPath(TODO_COLLECTION));
-            // Note: Sorting is done client-side to avoid mandatory Firestore indexes.
+            const path = getPrivateCollectionPath(TODO_COLLECTION);
+            if (!db || !path) return;
+            const todosRef = collection(db, path);
+            
             const unsubscribe = onSnapshot(todosRef, (snapshot) => {
                 const todos = [];
                 snapshot.forEach(doc => {
                     todos.push({ id: doc.id, ...doc.data() });
                 });
-                // Client-side sort by timestamp/completed status
+                // Client-side sort by completion status then by creation time
                 todos.sort((a, b) => (a.completed - b.completed) || (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
                 renderTodos(todos);
             }, (error) => console.error("Todo listener error:", error));
@@ -356,12 +356,13 @@
         };
 
         window.addTodo = async () => {
-            if (!db || userId === 'anon_user') return;
+            const path = getPrivateCollectionPath(TODO_COLLECTION);
+            if (!db || !path) return;
             const input = document.getElementById('new-todo-input');
             const text = input.value.trim();
             if (text) {
                 try {
-                    const todosRef = collection(db, getPrivateCollectionPath(TODO_COLLECTION));
+                    const todosRef = collection(db, path);
                     await addDoc(todosRef, {
                         text: text,
                         completed: false,
@@ -375,9 +376,10 @@
         };
 
         window.toggleTodo = async (id, completedStatus) => {
-            if (!db || userId === 'anon_user') return;
+            const path = getPrivateCollectionPath(TODO_COLLECTION);
+            if (!db || !path) return;
             try {
-                const docRef = doc(db, getPrivateCollectionPath(TODO_COLLECTION), id);
+                const docRef = doc(db, path, id);
                 await updateDoc(docRef, { completed: completedStatus });
             } catch (e) {
                 console.error("Error updating todo: ", e);
@@ -385,9 +387,10 @@
         };
 
         window.deleteTodo = async (id) => {
-            if (!db || userId === 'anon_user') return;
+            const path = getPrivateCollectionPath(TODO_COLLECTION);
+            if (!db || !path) return;
             try {
-                const docRef = doc(db, getPrivateCollectionPath(TODO_COLLECTION), id);
+                const docRef = doc(db, path, id);
                 await deleteDoc(docRef);
             } catch (e) {
                 console.error("Error deleting todo: ", e);
@@ -523,8 +526,10 @@
 
         function startRealtimeListeners() {
             // Start listeners only after Auth state is stable
-            startTasbihListener();
-            startTodoListener();
+            if (db) {
+                startTasbihListener();
+                startTodoListener();
+            }
         }
 
         // Initialize and start recurring updates
