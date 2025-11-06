@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-gray-50 dark:bg-gray-900">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huda</title>
-    <link rel="icon" type="image/png" href="huda.png"> 
-    
+    <link rel="icon" type="image/png" href="huda.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -199,8 +198,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, collection, query, addDoc, updateDoc, deleteDoc, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, collection, addDoc, updateDoc, deleteDoc, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
         // --- FEATURE 10: Setup Global Variables (FIXED) ---
         // !!! YOU MUST REPLACE THESE PLACEHOLDERS WITH YOUR ACTUAL FIREBASE CONFIG !!!
@@ -213,7 +212,7 @@
             messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
             appId: "YOUR_ACTUAL_APP_ID"
         };
-        const initialAuthToken = null; // Use 'null' for anonymous sign-in
+        const initialAuthToken = null; // Stays null for anonymous sign-in
 
         let app, db, auth;
         let userId = 'anon_user'; // Default placeholder
@@ -223,24 +222,17 @@
             db = getFirestore(app);
             auth = getAuth(app);
         } else {
+            // This error will only show if the user fails to replace the placeholders
             console.error("Firebase configuration is missing or incomplete. Tasbih and Goals will not load.");
         }
 
         // --- Authentication and Initialization ---
         const initializeAppAndAuth = async () => {
-            if (!auth) {
-                // Set fallback ID for features that don't need persistence
-                userId = crypto.randomUUID(); 
-                document.getElementById('user-id-display').textContent = 'NO FIREBASE: ' + userId.substring(0, 8) + '...';
-                return;
-            }
+            if (!auth) return;
 
             try {
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
+                // Using signInAnonymously as initialAuthToken is null
+                await signInAnonymously(auth);
             } catch (error) {
                 console.error("Firebase authentication error:", error);
             }
@@ -249,12 +241,15 @@
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 userId = user.uid;
+                // Show the first 8 characters of the User ID
                 document.getElementById('user-id-display').textContent = userId.substring(0, 8) + '...';
                 startRealtimeListeners();
-            } else if(auth) {
-                // Anonymous user or signed out
-                userId = crypto.randomUUID(); // Fallback UUID
-                document.getElementById('user-id-display').textContent = 'ANON: ' + userId.substring(0, 8) + '...';
+            } else if (auth) {
+                // If sign-in fails, show the fallback message
+                document.getElementById('user-id-display').textContent = 'ANON: Auth Failed';
+            } else {
+                // If Firebase wasn't initialized at all
+                document.getElementById('user-id-display').textContent = 'ANON: NO FIREBASE';
             }
         });
 
@@ -262,7 +257,7 @@
 
         // Helper for Firestore paths
         const getPrivateCollectionPath = (collectionName) => {
-            if (!appId || !userId) return null; // Guard against missing IDs
+            if (!appId || !userId || !db) return null; // Safety check
             return `/artifacts/${appId}/users/${userId}/${collectionName}`;
         };
 
@@ -526,14 +521,13 @@
 
         function startRealtimeListeners() {
             // Start listeners only after Auth state is stable
-            if (db) {
-                startTasbihListener();
-                startTodoListener();
-            }
+            startTasbihListener();
+            startTodoListener();
         }
 
         // Initialize and start recurring updates
         window.onload = () => {
+            // This is the first thing that runs, ensuring the clock, date, and hadith load.
             initializeAppAndAuth();
             updateClockAndProgress();
             setInterval(updateClockAndProgress, 1000);
